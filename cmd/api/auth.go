@@ -103,8 +103,6 @@ func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Reque
 	}
 
 	// send mail
-	log.Println("Sleeping for test")
-	time.Sleep(time.Second * 5)
 	status, err := app.mailer.Send(mailer.UserWelcomeTemplate, user.Username, user.Email, vars, !isProdEnv)
 	if err != nil {
 		app.logger.Errorw("Error sending welcome email", "error", err)
