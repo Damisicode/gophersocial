@@ -2,6 +2,7 @@ package mailer
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/sendgrid/sendgrid-go"
@@ -46,6 +47,7 @@ func (m *SendGridMailer) Send(templateFile, username, email string, data any, is
 		response, retryErr := m.client.Send(message)
 		if retryErr != nil {
 			// exponential backoff
+			log.Println(response, retryErr)
 			time.Sleep(time.Second * time.Duration(i+1))
 			continue
 		}
